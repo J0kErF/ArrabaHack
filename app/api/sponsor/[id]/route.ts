@@ -20,13 +20,13 @@ export async function DELETE(
 // PUT /api/sponsor/[id]
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   await dbConnect();
 
   try {
     const body = await req.json();
-    const updated = await Sponsor.findByIdAndUpdate(params.id, body, {
+    const updated = await Sponsor.findByIdAndUpdate(context.params.id, body, {
       new: true,
     });
 

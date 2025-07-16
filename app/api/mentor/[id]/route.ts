@@ -1,30 +1,32 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { dbConnect } from "@/lib/mongodb";
 import Mentor from "@/models/mentor";
 
+// DELETE /api/mentor/[id]
 export async function DELETE(
-  request: Request,
-  context: { params: { id: string } }
+  req: NextRequest,
+  { params }: { params: { id: string } }
 ) {
   await dbConnect();
 
   try {
-    await Mentor.findByIdAndDelete(context.params.id);
+    await Mentor.findByIdAndDelete(params.id);
     return NextResponse.json({ message: "Deleted" }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Failed to delete" }, { status: 500 });
   }
 }
 
+// PUT /api/mentor/[id]
 export async function PUT(
-  request: Request,
-  context: { params: { id: string } }
+  req: NextRequest,
+  { params }: { params: { id: string } }
 ) {
   await dbConnect();
 
   try {
-    const body = await request.json();
-    const updated = await Mentor.findByIdAndUpdate(context.params.id, body, {
+    const body = await req.json();
+    const updated = await Mentor.findByIdAndUpdate(params.id, body, {
       new: true,
     });
 
