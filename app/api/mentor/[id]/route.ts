@@ -1,18 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import type { NextApiRequestContext } from "next";
-
 import { dbConnect } from "@/lib/mongodb";
 import Mentor from "@/models/mentor";
 
 // DELETE /api/mentor/[id]
 export async function DELETE(
   req: NextRequest,
-  context: NextApiRequestContext<{ id: string }>
+  { params }: { params: { id: string } }
 ) {
   await dbConnect();
 
   try {
-    await Mentor.findByIdAndDelete(context.params.id);
+    await Mentor.findByIdAndDelete(params.id);
     return NextResponse.json({ message: "Deleted" }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Failed to delete" }, { status: 500 });
@@ -22,13 +20,13 @@ export async function DELETE(
 // PUT /api/mentor/[id]
 export async function PUT(
   req: NextRequest,
-  context: NextApiRequestContext<{ id: string }>
+  { params }: { params: { id: string } }
 ) {
   await dbConnect();
 
   try {
     const body = await req.json();
-    const updated = await Mentor.findByIdAndUpdate(context.params.id, body, {
+    const updated = await Mentor.findByIdAndUpdate(params.id, body, {
       new: true,
     });
 
