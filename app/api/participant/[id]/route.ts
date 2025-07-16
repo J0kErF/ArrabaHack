@@ -5,12 +5,13 @@ import Participant from "@/models/participant";
 // DELETE /api/participant/[id]
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: any
 ) {
   await dbConnect();
 
   try {
-    await Participant.findByIdAndDelete(params.id);
+    const { id } = context.params;
+    await Participant.findByIdAndDelete(id);
     return NextResponse.json({ message: "Deleted" }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Failed to delete" }, { status: 500 });
@@ -20,13 +21,15 @@ export async function DELETE(
 // PUT /api/participant/[id]
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: any
 ) {
   await dbConnect();
 
   try {
     const body = await req.json();
-    const updated = await Participant.findByIdAndUpdate(params.id, body, {
+    const { id } = context.params;
+
+    const updated = await Participant.findByIdAndUpdate(id, body, {
       new: true,
     });
 

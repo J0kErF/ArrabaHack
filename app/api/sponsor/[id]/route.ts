@@ -1,16 +1,17 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { dbConnect } from "@/lib/mongodb";
 import Sponsor from "@/models/sponsor";
 
 // DELETE /api/sponsor/[id]
 export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  context: any
 ) {
   await dbConnect();
 
   try {
-    await Sponsor.findByIdAndDelete(params.id);
+    const { id } = context.params;
+    await Sponsor.findByIdAndDelete(id);
     return NextResponse.json({ message: "Deleted" }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Failed to delete" }, { status: 500 });
@@ -19,14 +20,16 @@ export async function DELETE(
 
 // PUT /api/sponsor/[id]
 export async function PUT(
-  req: Request,
-  context: { params: { id: string } }
+  req: NextRequest,
+  context: any
 ) {
   await dbConnect();
 
   try {
     const body = await req.json();
-    const updated = await Sponsor.findByIdAndUpdate(context.params.id, body, {
+    const { id } = context.params;
+
+    const updated = await Sponsor.findByIdAndUpdate(id, body, {
       new: true,
     });
 
