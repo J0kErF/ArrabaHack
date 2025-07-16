@@ -1,10 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { dbConnect } from "@/lib/mongodb";
 import Participant from "@/models/participant";
 
 // DELETE /api/participant/[id]
 export async function DELETE(
-  req: Request,
+  req: NextRequest,
   { params }: { params: { id: string } }
 ) {
   await dbConnect();
@@ -19,19 +19,19 @@ export async function DELETE(
 
 // PUT /api/participant/[id]
 export async function PUT(
-  req: Request,
-  context: { params: { id: string } }
+  req: NextRequest,
+  { params }: { params: { id: string } }
 ) {
   await dbConnect();
 
   try {
     const body = await req.json();
-    const updated = await Participant.findByIdAndUpdate(context.params.id, body, {
+    const updated = await Participant.findByIdAndUpdate(params.id, body, {
       new: true,
     });
 
     if (!updated) {
-      return NextResponse.json({ error: "Not Found" }, { status: 404 });
+      return NextResponse.json({ error: "Participant not found" }, { status: 404 });
     }
 
     return NextResponse.json(updated, { status: 200 });
