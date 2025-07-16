@@ -20,7 +20,7 @@ export default function HomePage() {
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold leading-tight tracking-tight">
             {/* Multicolor Gradient Text */}
             <span className="bg-gradient-to-r from-pink-500 via-purple-600 to-orange-400 bg-clip-text text-transparent">
-              Arraba Hack '25
+              Arraba Hack #1
             </span>
           </h1>
 
