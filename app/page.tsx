@@ -38,6 +38,33 @@ export default function HomePage() {
           </Button>
         </div>
       </section>
+      {/* Organizers Section */}
+      <section className="bg-white py-12 px-6 text-center">
+        <h2 className="text-3xl font-bold text-orange-500 mb-6">Organizers</h2>
+        <div className="flex justify-center items-center gap-12 flex-wrap">
+          <img src="/logos/pymaster.svg" alt="PyMaster" className="h-16 w-auto object-contain" />
+          <img src="/logos/arraba-muni.jpg" alt="Arraba Municipality" className="h-16 w-auto object-contain" />
+        </div>
+      </section>
+
+      {/* Partners Section 
+      <section className="bg-gray-50 py-12 px-6 text-center">
+        <h2 className="text-3xl font-bold text-orange-500 mb-8">Partners</h2>
+        <div className="flex flex-wrap justify-center gap-10 max-w-5xl mx-auto">
+          {[
+            "/logos/hasoub.svg",
+          ].map((src, i) => (
+            <img
+              key={i}
+              src={src}
+              alt={`Partner ${i + 1}`}
+              className="h-12 w-auto object-contain opacity-80 hover:opacity-100 transition"
+            />
+          ))}
+        </div>
+      </section>
+*/}
+
 
       {/* About Section */}
       <section className="py-20 bg-white text-black text-center px-6">
@@ -153,7 +180,7 @@ export default function HomePage() {
             We're finalizing an exciting day full of innovation, teamwork, and inspiration.
           </p>
           <p className="text-md text-gray-600 italic">
-            Detailed schedule coming soon. Stay tuned on our socials or subscribe to updates!
+            Detailed schedule coming soon!
           </p>
         </div>
       </section >
