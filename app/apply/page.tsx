@@ -33,17 +33,18 @@ export default function ApplyPage() {
       toast.success("Application submitted!");
       form.reset();
     } else {
-      toast.error("Submission failed. Please try again.");
+      const { message } = await res.json();
+      toast.error(message || "Submission failed. Please try again.");
     }
   }
 
   return (
     <section className="min-h-screen bg-gradient-to-b from-white to-orange-50 px-4 sm:px-6 lg:px-8 py-24">
       <div className="max-w-4xl mx-auto space-y-12 text-gray-800">
-        {/* Header */}
+        {/* Heading */}
         <header className="text-center space-y-4">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-orange-600 font-display">
-            Apply to Arraba Hack
+            Apply to Arraba Hack
           </h1>
           <p className="text-gray-600 max-w-md mx-auto text-base sm:text-lg">
             Select your role and complete our short application – it only takes a few minutes.
@@ -55,11 +56,14 @@ export default function ApplyPage() {
           {ROLES.map((r) => (
             <button
               key={r}
+              type="button"
               onClick={() => setRole(r)}
-              className={`capitalize px-6 py-2 rounded-md font-medium border transition-all
-                ${role === r
-                  ? "bg-orange-500 text-white shadow"
-                  : "border-gray-300 text-gray-700 hover:border-orange-400 hover:text-orange-600"}`}
+              className={`capitalize px-6 py-2 rounded-md font-medium border transition
+                ${
+                  role === r
+                    ? "bg-orange-500 text-white shadow"
+                    : "border-gray-300 text-gray-700 hover:border-orange-400 hover:text-orange-600"
+                }`}
             >
               {r}
             </button>
@@ -70,9 +74,9 @@ export default function ApplyPage() {
         <Card className="shadow-xl border-none">
           <CardContent className="p-6 sm:p-10 space-y-8">
             <form className="space-y-8" onSubmit={handleSubmit}>
-              {/* Shared Fields */}
+              {/* Shared fields */}
               <div className="grid gap-6 sm:grid-cols-2">
-                <FormInput id="name" label="Full Name" required />
+                <FormInput id="fullName" label="Full Name" required />
                 <FormInput id="phone" label="Phone Number" type="tel" required />
                 <FormInput
                   id="email"
@@ -83,7 +87,7 @@ export default function ApplyPage() {
                 />
               </div>
 
-              {/* Role‑specific Fields */}
+              {/* Role‑specific */}
               {role === "Participant" && <ParticipantSection />}
               {role === "Volunteer" && <VolunteerSection />}
               {role === "Sponsor" && <SponsorSection />}
@@ -108,7 +112,7 @@ export default function ApplyPage() {
   );
 }
 
-/* ----------------- Reusable Components -------------------- */
+/* ---------- Reusable ---------- */
 
 function FormInput({
   id,
@@ -125,6 +129,8 @@ function FormInput({
     </div>
   );
 }
+
+/* ---------- Participant ---------- */
 
 function ParticipantSection() {
   return (
@@ -152,6 +158,8 @@ function ParticipantSection() {
   );
 }
 
+/* ---------- Volunteer ---------- */
+
 function VolunteerSection() {
   return (
     <div className="grid gap-6 sm:grid-cols-2">
@@ -160,6 +168,8 @@ function VolunteerSection() {
     </div>
   );
 }
+
+/* ---------- Sponsor ---------- */
 
 function SponsorSection() {
   return (
@@ -170,11 +180,18 @@ function SponsorSection() {
       </div>
       <div className="space-y-1.5">
         <Label htmlFor="message">Message / Proposal</Label>
-        <Textarea id="message" name="message" rows={4} placeholder="Tell us how you'd like to support Arraba Hack…" />
+        <Textarea
+          id="message"
+          name="message"
+          rows={4}
+          placeholder="Tell us how you'd like to support Arraba Hack…"
+        />
       </div>
     </div>
   );
 }
+
+/* ---------- Mentor ---------- */
 
 function MentorSection() {
   return (
