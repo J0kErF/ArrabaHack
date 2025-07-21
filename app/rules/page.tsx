@@ -39,12 +39,12 @@ export default function RulesPage() {
 
           <div>
             <h2 className="text-2xl font-bold text-orange-500 mb-2 flex items-center gap-2">
-              <TimerReset className="w-6 h-6" /> Digital Submissions (if applicable)
+              <TimerReset className="w-6 h-6" /> Digital Submissions
             </h2>
             <ul className="list-disc pl-6 space-y-2 text-gray-700">
-              <li>Submit a demo video under 2 minutes showing what you built.</li>
-              <li>Your code must be public and submitted via GitHub or similar.</li>
-              <li>Video must mention "Arraba Hack" clearly at the start.</li>
+              <li>Submit a slides presentation showing what you built.</li>
+              <li>Your code must be public and submitted via GitHub.</li>
+              <li>The slides presentation must mention "Arraba Hack" clearly at the start.</li>
               <li>Projects must be new work — no reused codebases.</li>
               <li>All team members must be properly registered for the event.</li>
             </ul>
