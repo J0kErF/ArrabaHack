@@ -18,7 +18,7 @@ export default function TeamPage() {
           </div>
           <div className="flex flex-wrap justify-center gap-6 mt-6">
             <img src="/logos/pymaster.svg" alt="Organizer 1" className="h-20" />
-            <img src="/logos/arraba-muni.png" alt="Organizer 2" className="h-20" />
+            <img src="/logos/arraba-muni.jpg" alt="Organizer 2" className="h-20" />
           </div>
         </div>
 
