@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Building, BookOpen, HeartPulse, Leaf, Users } from "lucide-react";
-
+import PrizeSection from "@/components/PrizesSection";
 
 export default function HomePage() {
   return (
@@ -38,6 +38,9 @@ export default function HomePage() {
           </Button>
         </div>
       </section>
+      {/* Prizes Section */}
+      <PrizeSection />
+
       {/* Organizers Section */}
       <section className="bg-white py-12 px-6 text-center">
         <h2 className="text-3xl font-bold text-orange-500 mb-6">Organizers</h2>
@@ -46,24 +49,6 @@ export default function HomePage() {
           <img src="/logos/arraba-muni.jpg" alt="Arraba Municipality" className="h-16 w-auto object-contain" />
         </div>
       </section>
-
-      {/* Partners Section 
-      <section className="bg-gray-50 py-12 px-6 text-center">
-        <h2 className="text-3xl font-bold text-orange-500 mb-8">Partners</h2>
-        <div className="flex flex-wrap justify-center gap-10 max-w-5xl mx-auto">
-          {[
-            "/logos/hasoub.svg",
-          ].map((src, i) => (
-            <img
-              key={i}
-              src={src}
-              alt={`Partner ${i + 1}`}
-              className="h-12 w-auto object-contain opacity-80 hover:opacity-100 transition"
-            />
-          ))}
-        </div>
-      </section>
-*/}
 
 
       {/* About Section */}
