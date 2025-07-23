@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     description:
       "Innovation, community, and tech in one event. Join us at Arraba Hackathon 2024.",
     site: "@arrabahack",
-    images: ["https://arrabahack.mryosef.com/og-image.jpg"],
+    images: ["https://arrabahack.mryosef.com/1.svg"],
   },
   icons: {
     icon: "/1.svg",
