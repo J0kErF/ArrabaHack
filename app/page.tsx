@@ -192,8 +192,8 @@ export default function HomePage() {
           <p className="text-lg leading-relaxed">
             Applications are officially open! Click on <strong>Apply</strong> in the navbar and secure your spot.
             Check out our amazing{' '}
-            <Link href="/sponsors" className="underline text-blue-600 hover:text-blue-800">
-              sponsors
+            <Link href="/team" className="underline text-blue-600 hover:text-blue-800">
+              team
             </Link>{' '}who are making this event possible — many are hiring!
             <br />Have questions? Head over to our{' '}
             <Link href="/faqs" className="underline text-blue-600 hover:text-blue-800">

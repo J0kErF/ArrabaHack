@@ -11,7 +11,7 @@ const NAV_ITEMS = [
   { href: "/faqs", label: "FAQs" },
   { href: "/rules", label: "Rules" },
   { href: "/workshops", label: "Workshops" },
-  { href: "/sponsors", label: "Sponsors" },
+  { href: "/team", label: "Team" },
 ];
 
 export default function Navbar() {
