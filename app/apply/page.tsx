@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "react-hot-toast";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 const ROLES = ["Participant", "Volunteer", "Sponsor", "Mentor"] as const;
 type Role = (typeof ROLES)[number];
@@ -15,12 +25,37 @@ type Role = (typeof ROLES)[number];
 export default function ApplyPage() {
   const [role, setRole] = useState<Role>("Participant");
   const [loading, setLoading] = useState(false);
+  const [existingUser, setExistingUser] = useState<{
+    fullName: string;
+    role: string;
+  } | null>(null);
+
+  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries());
+    const phone = data.phone as string;
 
+    // 🔎 Check if phone already registered
+    const check = await fetch("/api/check-phone", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ phone }),
+    });
+
+    const result = await check.json();
+
+    if (result.exists) {
+      setExistingUser({
+        fullName: result.fullName,
+        role: result.role,
+      });
+      return; // 🚫 Don't submit if already exists
+    }
+
+    // ✅ Submit actual application
     setLoading(true);
     const res = await fetch(`/api/${role.toLowerCase()}`, {
       method: "POST",
@@ -31,12 +66,13 @@ export default function ApplyPage() {
     setLoading(false);
     if (res.ok) {
       toast.success("Application submitted!");
-      form.reset();
+      router.push(`/apply/done?role=${role}&phone=${encodeURIComponent(phone)}`);
     } else {
       const { message } = await res.json();
       toast.error(message || "Submission failed. Please try again.");
     }
   }
+
 
   return (
     <section className="min-h-screen bg-gradient-to-b from-white to-orange-50 px-4 sm:px-6 lg:px-8 py-24">
@@ -59,10 +95,9 @@ export default function ApplyPage() {
               type="button"
               onClick={() => setRole(r)}
               className={`capitalize px-6 py-2 rounded-md font-medium border transition
-                ${
-                  role === r
-                    ? "bg-orange-500 text-white shadow"
-                    : "border-gray-300 text-gray-700 hover:border-orange-400 hover:text-orange-600"
+                ${role === r
+                  ? "bg-orange-500 text-white shadow"
+                  : "border-gray-300 text-gray-700 hover:border-orange-400 hover:text-orange-600"
                 }`}
             >
               {r}
@@ -108,7 +143,31 @@ export default function ApplyPage() {
           </CardContent>
         </Card>
       </div>
+      <Dialog open={!!existingUser} onOpenChange={() => setExistingUser(null)}>
+        <DialogContent className="bg-white">
+          <DialogHeader>
+            <DialogTitle>You're Already Registered</DialogTitle>
+            <DialogDescription>
+              We found a submission from <strong>{existingUser?.fullName}</strong> for the role of <strong>{existingUser?.role}</strong>.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="text-sm text-gray-600 mt-4">
+            If you need help or have updates, feel free to email us at:
+            <br />
+            <a href="mailto:mohammad@mryosef.com" className="text-orange-600 font-medium">
+              mohammad@mryosef.com
+            </a>
+          </div>
+          <DialogFooter className="mt-6">
+            <Button onClick={() => setExistingUser(null)} className="w-full bg-orange-500 text-white hover:bg-orange-600">
+              Close
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
     </section>
+
   );
 }
 
