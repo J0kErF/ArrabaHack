@@ -5,7 +5,7 @@ import Participant from "@/models/participant"; // to register the schema
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: any
 ) {
   await dbConnect();
   const { name } = await req.json();
@@ -25,7 +25,7 @@ export async function PATCH(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: any
 ) {
   await dbConnect();
 
