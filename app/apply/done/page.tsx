@@ -2,8 +2,11 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function ApplyDonePage() {
+export const dynamic = "force-dynamic"; // ✅ prevent static rendering
+
+function DoneMessage() {
   const searchParams = useSearchParams();
   const role = searchParams.get("role");
   const phone = searchParams.get("phone");
@@ -20,5 +23,13 @@ export default function ApplyDonePage() {
         </p>
       </div>
     </section>
+  );
+}
+
+export default function ApplyDonePage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <DoneMessage />
+    </Suspense>
   );
 }
