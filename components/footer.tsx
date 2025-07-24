@@ -19,14 +19,11 @@ export default function Footer() {
           <Link href="/team" className="hover:text-orange-400 transition">
             Team
           </Link>
-          <Link href="/sponsors" className="hover:text-orange-400 transition">
-            Sponsors
-          </Link>
-          <Link href="/faq" className="hover:text-orange-400 transition">
+          <Link href="/faqs" className="hover:text-orange-400 transition">
             FAQ
           </Link>
-          <Link href="/contact" className="hover:text-orange-400 transition">
-            Contact
+          <Link href="/apply" className="hover:text-orange-400 transition">
+            Apply
           </Link>
         </nav>
 
