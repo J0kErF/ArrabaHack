@@ -303,6 +303,7 @@ export default function AppliesPage() {
                                   Edit
                                 </Button>
                                 <Button
+                                  className="text-red-600 border-red-400 hover:bg-red-100"
                                   size="sm"
                                   variant="destructive"
                                   onClick={() => handleDelete(r, item._id)}
