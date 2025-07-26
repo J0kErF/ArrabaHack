@@ -238,7 +238,6 @@ export default function AppliesPage() {
                 Export {role} to CSV 
               </Button>
             </div>
-            // add count of applications
             <p className="text-center text-sm text-gray-500">
               Total {role} applications: {data[role].length}
             </p>
