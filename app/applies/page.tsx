@@ -235,9 +235,13 @@ export default function AppliesPage() {
                 className="mt-4 border-orange-500 text-orange-600 hover:bg-orange-500 hover:text-white"
                 onClick={() => downloadCSV(data[role], `${role}-applications`)}
               >
-                Export {role} to CSV
+                Export {role} to CSV 
               </Button>
             </div>
+            // add count of applications
+            <p className="text-center text-sm text-gray-500">
+              Total {role} applications: {data[role].length}
+            </p>
 
             <Tabs value={role} onValueChange={(v) => setRole(v as RoleKey)}>
               <TabsList className="mx-auto flex flex-wrap justify-center gap-3 bg-gray-100 rounded-lg p-1">
